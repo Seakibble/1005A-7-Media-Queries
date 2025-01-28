@@ -1,3 +1,8 @@
+/* The best way to design a responsive site is to start with the mobile experience and add styles to account for larger screen sizes. This makes it less likely that the page will break. 
+This is called Mobile First web design. */
+
+
+/* Start with only the styles necessary for the basic mobile experience. Once it looks good, expand the viewport until it starts looking weird or broken, and add media queries to adjust the page. */
 body {
     min-height: 100vh;
     display: grid;
@@ -14,6 +19,7 @@ main {
     
     display: grid;
     gap: 30px;
+    /* We don't need any columns on mobile... */
     /* grid-template-columns: 1fr 1fr 1fr; */
     align-items: start;
 }
@@ -38,22 +44,24 @@ main {
 }
 
 
-@media print {
-    /* style for print */
-}
+/* When designing media queries for mobile first, we specify rules that apply when the viewport is *at least* some given width. For this we use min-width. */
 
+/* Newer syntax allows us to use >, >=, <, <=, for comparison, and 'width' to refer to the viewport width. So max-width: 1000px can be written as 'width <= 1000px' for instance. */
 /* @media screen and (min-width: 600px) { */
 @media screen and (width >= 600px) {
     main {
+        /* here we add back in two columns as we move into more of a tablet size. We can add the padding back in too so the cards aren't touching the sides of the screen. */
         grid-template-columns: 1fr 1fr;
         padding: 25px;
     }
 
     .card {
+        /* Add back the border radius */
         border-radius: 30px;
     }
 
     .card:last-child {
+        /* With two columns, one card needs to span two so it doesn't look lopsided. */
         grid-column: span 2;
     }
 }
@@ -61,41 +69,12 @@ main {
 /* @media screen and (min-width: 900px) { */
 @media screen and (width >= 900px) {
     main {
+        /* As we reach a desktop size, we go back to three columns again. */
         grid-template-columns: 1fr 1fr 1fr;
     }
 
     .card:last-child {
+        /* Remove the span 2 so the cards are all the same size again. */
         grid-column: span 1;
     }
 }
-
-
-/* @media screen and (max-width: 900px) {
-    main {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .card:last-child {
-        grid-column: span 2;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    main {
-        grid-template-columns: 1fr;
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .card {
-        border-radius: 0;
-    }
-
-    .card h2 {
-        text-align: center;
-    }
-
-    .card:last-child {
-        grid-column: span 1;
-    }
-} */
